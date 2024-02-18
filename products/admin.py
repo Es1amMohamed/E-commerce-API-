@@ -21,3 +21,19 @@ class ProductsAdmin(admin.ModelAdmin):
     list_editable = ["active", "price", "stock"]
     search_fields = ["name", "description", "brand"]
     prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ["name", "slug", "created_at"]
+    list_filter = ["name", "created_at"]
+    search_fields = ["name"]
+    prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(Brand)
+class BrandAdmin(admin.ModelAdmin):
+    list_display = ["name", "slug", "created_at"]
+    list_filter = ["name", "created_at"]
+    search_fields = ["name"]
+    prepopulated_fields = {"slug": ("name",)}
