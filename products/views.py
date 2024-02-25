@@ -4,6 +4,7 @@ from .serializers import *
 from rest_framework import viewsets
 from django.db.models import Q
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -22,6 +23,7 @@ class CustomPagination(PageNumberPagination):
 class ProductsView(viewsets.ModelViewSet):
     serializer_class = ProductsSerializer
     pagination_class = CustomPagination
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         """
@@ -60,6 +62,7 @@ class CategoryView(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     pagination_class = CustomPagination
+    permission_classes = [IsAuthenticated]
 
 
 class BrandView(viewsets.ModelViewSet):
@@ -67,3 +70,4 @@ class BrandView(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     pagination_class = CustomPagination
+    permission_classes = [IsAuthenticated]

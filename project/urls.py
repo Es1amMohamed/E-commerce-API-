@@ -17,12 +17,21 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework_simplejwt.views import (
+    TokenVerifyView,
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
+    path("accounts/", include("accounts.urls", namespace="accounts")),
     path("admin/", admin.site.urls),
     path("", include("products.urls", namespace="products")),
+    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
 ]
 
 
-handler404 = 'utils.error_view.error_view'
-handler500 = 'utils.error_view.error_view2' 
+handler404 = "utils.error_view.error_view"
+handler500 = "utils.error_view.error_view2"
