@@ -22,3 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("products.urls", namespace="products")),
 ]
+
+
+handler404 = 'utils.error_view.error_view'
+handler500 = 'utils.error_view.error_view2' 
