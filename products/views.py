@@ -71,3 +71,4 @@ class BrandView(viewsets.ModelViewSet):
     serializer_class = BrandSerializer
     pagination_class = CustomPagination
     permission_classes = [IsAuthenticated]
+

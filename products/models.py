@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.utils.text import slugify
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -12,7 +13,6 @@ class Products(models.Model):
         "Category", verbose_name="category", on_delete=models.CASCADE
     )
     brand = models.ForeignKey("Brand", verbose_name="brand", on_delete=models.CASCADE)
-    rating = models.DecimalField(max_digits=5, decimal_places=1, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
@@ -24,6 +24,10 @@ class Products(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def __save__(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        Products().save(*args, **kwargs)
 
 
 class Category(models.Model):
@@ -37,6 +41,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def __save__(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        Category().save(*args, **kwargs)
 
 
 class Brand(models.Model):
@@ -50,3 +58,8 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def __save__(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        Brand().save(*args, **kwargs)
+
