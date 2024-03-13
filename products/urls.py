@@ -11,7 +11,6 @@ router.register("category", views.CategoryView, basename="category")
 router.register("brand", views.BrandView, basename="brand")
 
 
-
 urlpatterns = [
     path("", include(router.urls)),
 ]

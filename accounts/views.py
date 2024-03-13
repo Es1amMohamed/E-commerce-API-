@@ -50,10 +50,12 @@ def current_user(request):
 
     return Response(user.data)
 
+
 def get_current_host(request):
     protocol = request.is_secure() and "https" or "http"
     host = request.get_host()
-    return '{protocol}://{host}/'.format(protocol=protocol, host=host)
+    return "{protocol}://{host}/".format(protocol=protocol, host=host)
+
 
 @api_view(["PUT"])
 def forget_password(request):
@@ -65,35 +67,42 @@ def forget_password(request):
     user.profile.reset_password_expire = expire
     user.profile.save()
     host = get_current_host(request)
-    link = 'http://localhost:8000/accounts/reset-password/{token}/'.format(token=token)
-    body = 'Your password reset link is {link}'.format(link=link)
+    link = "http://localhost:8000/accounts/reset-password/{token}/".format(token=token)
+    body = "Your password reset link is {link}".format(link=link)
     send_mail(
-        'Password Reset From Ecommerce',
+        "Password Reset From Ecommerce",
         body,
-        'ecommerce@ecommerce.com',
+        "ecommerce@ecommerce.com",
         [data["email"]],
     )
 
-    return Response({"message": "Password reset link sent to {email}".format(email=data["email"])})
+    return Response(
+        {"message": "Password reset link sent to {email}".format(email=data["email"])}
+    )
 
 
 @api_view(["POST"])
 def reset_password(request, token):
     data = request.data
     user = get_object_or_404(User, profile__reset_password_token=token)
-    
+
     if user.profile.reset_password_expire.replace(tzinfo=None) < datetime.now():
-        
-        return Response({"message": "Password reset link expired"}, status=status.HTTP_400_BAD_REQUEST)
-    
+
+        return Response(
+            {"message": "Password reset link expired"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
     if data["password"] != data["confirm_password"]:
-        return Response({"message": "Password and confirm password does not match"}, status=status.HTTP_400_BAD_REQUEST)
-    
+        return Response(
+            {"message": "Password and confirm password does not match"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
     user.password = make_password(data["password"])
-    user.profile.reset_password_token = ''
+    user.profile.reset_password_token = ""
     user.profile.reset_password_expire = None
     user.profile.save()
     user.save()
-    
 
     return Response({"message": "Password reset successful"}, status=status.HTTP_200_OK)

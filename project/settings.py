@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     #### my apps
     "products",
+    "order",
     "rest_framework",
     "django_filters",
     "rest_framework_simplejwt",
@@ -56,11 +57,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '62ebe52c2bb02a'
-EMAIL_HOST_PASSWORD = '4bd63a922c8cdb'
-EMAIL_PORT = '2525'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "sandbox.smtp.mailtrap.io"
+EMAIL_HOST_USER = "62ebe52c2bb02a"
+EMAIL_HOST_PASSWORD = "4bd63a922c8cdb"
+EMAIL_PORT = "2525"
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = False
 

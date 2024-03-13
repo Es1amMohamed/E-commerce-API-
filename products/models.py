@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+
 # Create your models here.
 
 
@@ -24,7 +25,7 @@ class Products(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def __save__(self, *args, **kwargs):
         self.slug = slugify(self.name)
         Products().save(*args, **kwargs)
@@ -41,7 +42,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def __save__(self, *args, **kwargs):
         self.slug = slugify(self.name)
         Category().save(*args, **kwargs)
@@ -58,8 +59,7 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def __save__(self, *args, **kwargs):
         self.slug = slugify(self.name)
         Brand().save(*args, **kwargs)
-

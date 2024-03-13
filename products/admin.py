@@ -33,7 +33,3 @@ class BrandAdmin(admin.ModelAdmin):
     list_display = ["name", "slug", "created_at"]
     list_filter = ["name", "created_at"]
     search_fields = ["name"]
-    
-
-
-
